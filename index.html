@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nandhine V | AI &amp; Python Developer Portfolio</title>
+<meta name="description" content="Portfolio of Nandhine V, B.Sc. Computer Science (AI &amp; ML) graduate skilled in Python, deep learning, OpenCV and IoT on ESP32.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Design tokens: edit colors here ===== */
+:root{
+  --bg:#0d1020; --surface:#161a30; --line:#272c4a;
+  --text:#e8eaf6; --muted:#a3a8c6;
+  --accent:#7c83ff; --accent2:#4cc9f0;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--text);font:400 1rem/1.7 'Inter',system-ui,sans-serif}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 1.25rem}
+.narrow{max-width:640px}
+h1,h2,h3{font-family:'Sora',system-ui,sans-serif;line-height:1.2}
+
+/* ===== Navigation ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:.9rem 1.5rem;background:rgba(13,16,32,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-family:'Sora',sans-serif;font-weight:700;color:var(--text)}
+.nav nav{display:flex;gap:1.4rem}
+.nav nav a{color:var(--muted);font-size:.92rem;padding:.2rem 0;border-bottom:2px solid transparent}
+.nav nav a:hover,.nav nav a.active{color:var(--text);border-color:var(--accent);text-decoration:none}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);padding:.4rem .8rem;border-radius:8px;cursor:pointer}
+
+/* ===== Sections ===== */
+section{padding:5rem 0}
+.title{font-size:1.8rem;margin-bottom:1.6rem}
+.title::after{content:"";display:block;width:48px;height:3px;margin-top:.6rem;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+p+p{margin-top:.8rem}
+.meta{color:var(--muted)}
+
+/* ===== Hero (one page-load animation) ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:6rem;
+  background:radial-gradient(700px 400px at 80% 20%,rgba(124,131,255,.22),transparent)}
+.hero .wrap{animation:rise .8s ease both}
+.hello{color:var(--accent2);font-weight:500}
+.hero h1{font-size:clamp(2.8rem,9vw,5.2rem);font-weight:800;letter-spacing:-.02em}
+.hero h2{font-size:clamp(1.1rem,3vw,1.6rem);color:var(--accent);margin:.6rem 0 1rem;font-weight:600}
+.lead{max-width:560px;color:var(--muted)}
+.photo{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:1rem;border:2px solid var(--accent)}
+.btns{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.8rem 0 1.2rem}
+.btn{display:inline-block;padding:.7rem 1.4rem;border-radius:10px;border:1px solid var(--accent);color:var(--text);
+  background:transparent;font:600 .95rem 'Inter',sans-serif;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);text-decoration:none;background:rgba(124,131,255,.15)}
+.btn.primary{background:var(--accent);color:#0d1020}
+.btn.primary:hover{background:#9298ff}
+.social{display:flex;gap:1.2rem}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ===== Cards, grids, badges ===== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.4rem}
+.card h3{font-size:1.1rem;margin-bottom:.6rem}
+.grid{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
+.badges span{font-size:.82rem;padding:.25rem .7rem;border-radius:999px;background:rgba(124,131,255,.14);border:1px solid rgba(124,131,255,.35)}
+.timeline{display:grid;gap:1rem;border-left:2px solid var(--line);padding-left:1.2rem}
+.date,.tag-line{color:var(--accent2);font-weight:600;font-size:.9rem}
+.project ul{margin:.8rem 0 .4rem 1.1rem;color:var(--muted)}
+.project li{margin-bottom:.4rem}
+.project small{font-size:.75rem;color:var(--accent2);font-family:'Inter',sans-serif;font-weight:500}
+.links{display:flex;gap:1rem;margin-top:1rem;font-size:.9rem}
+
+/* ===== Form ===== */
+form{margin-top:1.8rem;display:grid;gap:.4rem}
+label{font-weight:500;margin-top:.6rem}
+input,textarea{width:100%;padding:.7rem .9rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit}
+input:focus,textarea:focus{border-color:var(--accent);outline:none}
+.err{color:#ff8a8a;font-size:.85rem;min-height:1em}
+form .btn{justify-self:start;margin-top:.8rem}
+.status{color:var(--accent2)}
+.note{color:var(--muted);font-size:.85rem}
+
+/* ===== Footer, back-to-top ===== */
+footer{text-align:center;padding:2rem 1rem;border-top:1px solid var(--line);color:var(--muted)}
+#toTop{position:fixed;right:1.2rem;bottom:1.2rem;padding:.6rem .9rem;border-radius:10px;border:0;background:var(--accent);
+  color:#0d1020;font-weight:600;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s}
+#toTop.show{opacity:1;pointer-events:auto}
+
+/* ===== Scroll reveal (class added by script.js) ===== */
+.js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.js .reveal.visible{opacity:1;transform:none}
+
+/* ===== Mobile ===== */
+@media(max-width:820px){
+  .menu-btn{display:block}
+  .nav nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line)}
+  .nav nav.open{display:flex}
+  .nav nav a{padding:.9rem 1.5rem}
+  section{padding:3.5rem 0}
+  .grid.two{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<header class="nav">
+  <a class="logo" href="#home">Nandhine V</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+  <nav id="navLinks" aria-label="Main">
+    <a href="#about">About</a><a href="#education">Education</a><a href="#skills">Skills</a>
+    <a href="#experience">Experience</a><a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <!-- Add your photo: put photo.jpg in this folder and uncomment the next line -->
+    <!-- <img class="photo" src="photo.jpg" alt="Nandhine V"> -->
+    <p class="hello">Hi, I'm</p>
+    <h1>Nandhine V</h1>
+    <h2>AI / Data Science / Python Developer</h2>
+    <p class="lead">Computer Science (AI &amp; ML) graduate who builds practical AI solutions: a CNN plant disease detector and an IoT gas leakage detection system on ESP32.</p>
+    <div class="btns">
+      <a class="btn primary" href="#projects">View My Work</a>
+      <a class="btn" href="#contact">Contact Me</a>
+    </div>
+    <div class="social">
+      <a href="https://www.linkedin.com/in/nandhine-dharshini-a8961a297" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#contact">[Add GitHub URL]</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="wrap">
+    <h2 class="title">About Me</h2>
+    <p>I am a fresher B.Sc. Computer Science (AI &amp; ML) graduate with hands-on project experience in Python, deep learning (CNN, TensorFlow, OpenCV) and IoT systems on ESP32. I am looking for an AI, Data Science or Python Developer role where I can build practical AI solutions.</p>
+    <p class="meta">Based in Coimbatore, Tamil Nadu, India</p>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Education</h2>
+    <div class="timeline">
+      <article class="card">
+        <span class="date">2023 - 2026</span>
+        <h3>B.Sc. Computer Science with Artificial Intelligence and Machine Learning</h3>
+        <p>Nallamuthu Gounder Mahalingam College (Autonomous), Pollachi, affiliated to Bharathiar University</p>
+        <p class="tag-line">CGPA: 8.0</p>
+      </article>
+      <article class="card"><h3>Higher Secondary (12th)</h3><p class="tag-line">90%</p></article>
+      <article class="card"><h3>Secondary (10th)</h3><p class="tag-line">100%</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Technical Skills</h2>
+    <div class="grid">
+      <div class="card"><h3>Programming Languages</h3><div class="badges"><span>Python</span><span>C++</span><span>SQL</span></div></div>
+      <div class="card"><h3>AI / ML</h3><div class="badges"><span>TensorFlow</span><span>CNN</span><span>Image Classification</span><span>OpenCV</span><span>LangChain</span><span>RAG</span></div></div>
+      <div class="card"><h3>Web and Backend</h3><div class="badges"><span>FastAPI</span><span>React</span><span>Streamlit</span></div></div>
+      <div class="card"><h3>Databases</h3><div class="badges"><span>MongoDB</span><span>SQL</span><span>Qdrant (vector DB)</span><span>Firebase Realtime Database</span></div></div>
+      <div class="card"><h3>IoT and Embedded</h3><div class="badges"><span>ESP32</span><span>Arduino IDE</span><span>Sensor Interfacing</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Experience and Internship</h2>
+    <article class="card">
+      <h3>[Add internship or work experience, if any]</h3>
+      <p>No professional experience is listed on my resume yet. My hands-on experience comes from the AI and IoT projects below, including a team project.</p>
+    </article>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Featured Projects</h2>
+    <div class="grid two">
+      <article class="card project">
+        <h3>Smart AI-Based Plant Health &amp; Monitoring System</h3>
+        <p>An AI and IoT smart agriculture system that monitors plant health and reduces manual inspection for farmers.</p>
+        <ul>
+          <li>CNN plant disease detection: upload a leaf image in a Streamlit app to get healthy or diseased, the disease name, a confidence percentage and prevention suggestions.</li>
+          <li>Tree species recognition using CNN-based image classification.</li>
+          <li>Smart irrigation with ESP32/Arduino, a soil moisture sensor and a relay that switches the water pump automatically.</li>
+          <li>Carbon sequestration estimator using tree type, diameter and height.</li>
+        </ul>
+        <div class="badges"><span>Python</span><span>TensorFlow</span><span>CNN</span><span>OpenCV</span><span>Streamlit</span><span>ESP32</span></div>
+        <p class="links"><a href="#contact">[Add GitHub URL]</a> <a href="#contact">[Add Live Demo URL]</a></p>
+      </article>
+      <article class="card project">
+        <h3>Smart Gas Leakage Detection System <small>Team Project</small></h3>
+        <p>An IoT safety system that detects hazardous gas leaks using an MQ gas sensor and a DHT11 temperature sensor.</p>
+        <ul>
+          <li>Dual-factor leak confirmation (gas level plus temperature spike), baseline calibration and a 60-second notification cooldown to reduce false alarms.</li>
+          <li>SMS and WhatsApp alerts through the Circuit Digest API, with live data logging in Firebase Realtime Database.</li>
+          <li>Automatic gas valve shut-off with a servo motor, plus a web dashboard hosted on the ESP32 with JSON API endpoints.</li>
+        </ul>
+        <div class="badges"><span>C++</span><span>ESP32</span><span>Arduino IDE</span><span>Firebase</span><span>Circuit Digest API</span></div>
+        <p class="links"><a href="#contact">[Add GitHub URL]</a> <a href="#contact">[Add Live Demo URL]</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="reveal">
+  <div class="wrap">
+    <h2 class="title">Certifications and Achievements</h2>
+    <div class="grid two">
+      <article class="card"><h3>Certifications</h3><p>[Add certification names and issuers]</p></article>
+      <article class="card"><h3>Academic Achievements</h3><p>100% in 10th grade, 90% in 12th grade and a CGPA of 8.0 in B.Sc.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="wrap narrow">
+    <h2 class="title">Contact</h2>
+    <p>
+      <a href="mailto:nandhinedharshini796@gmail.com">nandhinedharshini796@gmail.com</a><br>
+      <a href="tel:+917010661509">+91 70106 61509</a><br>
+      <a href="https://www.linkedin.com/in/nandhine-dharshini-a8961a297" target="_blank" rel="noopener">LinkedIn profile</a>
+    </p>
+    <form id="form" novalidate>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required>
+      <span class="err" id="e-name"></span>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+      <span class="err" id="e-email"></span>
+      <label for="subject">Subject</label>
+      <input id="subject" name="subject" type="text" required>
+      <span class="err" id="e-subject"></span>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+      <span class="err" id="e-message"></span>
+      <button class="btn primary" type="submit">Send Message</button>
+      <p class="status" id="status" role="status"></p>
+      <p class="note">Note: this form only checks your input. Real email delivery needs a backend or a form service such as Formspree or Netlify Forms. Until then, the button opens your email app.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><p>&copy; <span id="year"></span> Nandhine V. Coimbatore, Tamil Nadu.</p></footer>
+<button id="toTop" aria-label="Back to top">Top</button>
+<script>
+// Mark the page as JS-enabled so reveal animations only apply when scripts run
+document.documentElement.classList.add('js');
+
+// ===== Mobile menu =====
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+});
+// Close the menu after choosing a link
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  })
+);
+
+// ===== Scroll reveal =====
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===== Active navigation highlighting =====
+const sections = document.querySelectorAll('main section[id]');
+const links = navLinks.querySelectorAll('a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(s => navObserver.observe(s));
+
+// ===== Back-to-top button =====
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => {
+  toTop.classList.toggle('show', window.scrollY > 500);
+}, { passive: true });
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ===== Footer year =====
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ===== Contact form validation =====
+const form = document.getElementById('form');
+const status = document.getElementById('status');
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  let valid = true;
+  const data = {};
+
+  ['name', 'email', 'subject', 'message'].forEach(field => {
+    const input = form.elements[field];
+    const error = document.getElementById('e-' + field);
+    const value = input.value.trim();
+    data[field] = value;
+    let msg = '';
+    if (!value) msg = 'Please fill in this field.';
+    else if (field === 'email' && !emailPattern.test(value)) msg = 'Enter a valid email address.';
+    else if (field === 'message' && value.length < 10) msg = 'Write at least 10 characters.';
+    error.textContent = msg;
+    if (msg) valid = false;
+  });
+
+  if (!valid) {
+    status.textContent = '';
+    return;
+  }
+
+  // No backend yet: open the visitor's email app with the message filled in.
+  // To deliver real emails, replace this with a fetch() call to Formspree or Netlify Forms.
+  const body = encodeURIComponent(data.message + '\n\nFrom: ' + data.name + ' (' + data.email + ')');
+  window.location.href = 'mailto:nandhinedharshini796@gmail.com?subject=' +
+    encodeURIComponent(data.subject) + '&body=' + body;
+  status.textContent = 'Opening your email app...';
+  form.reset();
+});
+
+</script>
+</body>
+</html>
